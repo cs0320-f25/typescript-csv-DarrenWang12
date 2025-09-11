@@ -16,6 +16,7 @@ import { z, ZodType } from "zod";
  * @returns a "promise" to produce a 2-d array of cell values
  */
 export async function parseCSV<T>(path: string, schema?: ZodType<T>): Promise<T[] | string[][]> {
+  // Modified to take in Zod Schema
   // This initial block of code reads from a file in Node.js. The "rl"
   // value can be iterated over in a "for" loop. 
   const fileStream = fs.createReadStream(path);
@@ -24,7 +25,7 @@ export async function parseCSV<T>(path: string, schema?: ZodType<T>): Promise<T[
     crlfDelay: Infinity, // handle different line endings
   });
   
-  // Create an empty array to hold the results
+  // Create an empty array to hold the results, will be either schema or no schema(original default)
   const result: (T | string[])[] = []  
   
   // We add the "await" here because file I/O is asynchronous. 
@@ -32,15 +33,19 @@ export async function parseCSV<T>(path: string, schema?: ZodType<T>): Promise<T[
   // More on this in class soon!
   for await (const line of rl) {
     const values = line.split(",").map((v) => v.trim());
+    // Checks for if there is a schema to follow
     if (schema) {
       const parsed = schema.safeParse(values);
+      // If the row is malformed, throw an error
       if (!parsed.success) {
         throw new Error(`CSV not in valid format: ${parsed.error.message}`);
       }
       result.push(parsed.data);
     } else {
+      // No schema, continue as before
       result.push(values);
     }
   }
+  
   return result as T[] | string[][];
 }
