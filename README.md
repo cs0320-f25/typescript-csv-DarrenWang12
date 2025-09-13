@@ -28,10 +28,13 @@ I'm not actually in 1340, I didn't realize it wasn't for 320 but I did it alread
 - #### 2. Random, On-Demand Generation
 2) Randomly produced csvs would allow us test our parser with a much wider variety of inputs than that we could write by hand. By creating and giving the parser random rows of different lengths/contents/formats, we can find possible edge cases that we might have missed before. It makes sure our parser is robust under many different situations as well as saving a lot of time having to manually create test csvs.
 - #### 3. Overall experience, Bugs encountered and resolved
-#### Errors/Bugs:
-#### Tests:
-#### How To…
 3) This assignment was a bit different from other assignments as it felt a little less structured with the assignment steps. There was not much that was surprising other than having to pick up more typescript syntax which is very explicit compared to the majority of the code I write which is in python. I did get slightly stuck on some parts where I wasn't sure why I was getting a typescript error such as when I wasn't properly declaring T as a generic or didn't fix my return statement, as well as making sure I using zod correctly to implement taking in a schema. I got through these bugs quickly with both documentation provided in the google doc and reading up on stackoverflow.
+#### Errors/Bugs:
+N/A
+#### Tests:
+Added in tests folders, tests for edgecases such as malformed data, multiline fields, etc.
+#### How To…
+Npm test runs all additional added tests.
 #### Team members and contributions (include cs logins):
 N/A
 #### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
